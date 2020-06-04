@@ -17,7 +17,6 @@ var numeroBombe = 16;
 var arrayBombe = generatoreArrayBombe(rangeNumeri, numeroBombe);
 var tentativiMassimi = rangeNumeri - numeroBombe;
 var arrayNumeriUtente = [];
-
 // console log dei numeri che ha generato il computer
 console.log(arrayBombe.sort());
 
@@ -35,19 +34,28 @@ while ((numeroTrovato === false) && (punti < tentativiMassimi)) {
     arrayNumeriUtente.push(numUtente);
     punti++;
   }
+  // if (isNaN(numUtente)) {
+  //   alert("attenzione inserisci un numero");
+  // }
+  // else if (controlloSePresente(numUtente, arrayNumeriUtente)) {
+  //   alert("non puoi ripetere i numeri");
+  //   console.log(arrayNumeriUtente);
+  //
+  // }
+
 }
 
 
 // validazione
 
-if (isNaN(numUtente)) {
-  alert("attenzione inserisci un numero");
-}
-else if (controlloSePresente(numUtente, arrayNumeriUtente)) {
-  alert("non puoi ripetere i numeri");
-  console.log(arrayNumeriUtente);
-
-}
+// if (isNaN(numUtente)) {
+//   alert("attenzione inserisci un numero");
+// }
+// else if (controlloSePresente(numUtente, arrayNumeriUtente)) {
+//   alert("non puoi ripetere i numeri");
+//   console.log(arrayNumeriUtente);
+//
+// }
 
 
 
