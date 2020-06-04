@@ -48,19 +48,6 @@ while ((numeroTrovato === false) && (punti < tentativiMassimi)) {
 }
 
 
-// validazione
-
-// if (isNaN(numUtente)) {
-//   alert("attenzione inserisci un numero");
-// }
-// else if (controlloSePresente(numUtente, arrayNumeriUtente)) {
-//   alert("non puoi ripetere i numeri");
-//   console.log(arrayNumeriUtente);
-//
-// }
-
-
-
 // messaggi da mostrare in caso di vittoria o sconfitta
 if (numeroTrovato == true) {
   console.log("BOOM HAI PERSO il tuo punteggio e " + punti);
@@ -69,7 +56,7 @@ else {
   console.log("Sei riuscito a raggiungere L uscita il tuo punteggio e " + punti);
 }
 
-
+// TODO: DEVO ANCORA INSERIRE I RANGE DI DIFFICOLTA (BONUS)
 
 // FUNZIONI
 // generatore numeri cpu - computer genera 16 numeri random
