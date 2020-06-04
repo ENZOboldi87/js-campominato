@@ -23,26 +23,28 @@ console.log(arrayBombe.sort());
 // totale dei tentativi massimi
 console.log("questi sono i tentativi che hai a disposizione " + tentativiMassimi);
 
-//
+// ciclo while, per il gioco
 while ((numeroTrovato === false) && (punti < tentativiMassimi)) {
+  // chiedo all utente un numero
   var numUtente = parseInt(prompt("Dimmi un numero da 1 a " + rangeNumeri));
+  if (isNaN(numUtente)) {
+    // se l utente non ha inserito un numero
+    alert("attenzione inserisci un numero");
+  }
+  else if (controlloSePresente(numUtente, arrayNumeriUtente)) {
+    // se l utente ha inserito un numero due volte
+    alert("non puoi ripetere i numeri");
+    console.log('numero doppione ' + arrayNumeriUtente);
 
-   if (controlloSePresente(numUtente, arrayBombe)) {
+  }
+   else if (controlloSePresente(numUtente, arrayBombe)) {
     numeroTrovato = true;
   }
+
   else {
     arrayNumeriUtente.push(numUtente);
     punti++;
   }
-  // if (isNaN(numUtente)) {
-  //   alert("attenzione inserisci un numero");
-  // }
-  // else if (controlloSePresente(numUtente, arrayNumeriUtente)) {
-  //   alert("non puoi ripetere i numeri");
-  //   console.log(arrayNumeriUtente);
-  //
-  // }
-
 }
 
 
@@ -66,7 +68,6 @@ if (numeroTrovato == true) {
 else {
   console.log("Sei riuscito a raggiungere L uscita il tuo punteggio e " + punti);
 }
-
 
 
 
