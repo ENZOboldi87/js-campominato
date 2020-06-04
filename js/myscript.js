@@ -5,72 +5,84 @@
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
 // BONUS: all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali.
 // Con difficoltà 0=> tra 1 e 100, con difficoltà 1 => tra 1 e 80, con difficoltà 2=> tra 1 e 50
-//
-//
-// Raccomandazione: andato avanti come sempre un pezzettino alla volta,
-// diamo a variabili e funzioni nomi che riflettano il proprio ruolo e prima di
-// iniziare facciamo l’analisi e scriviamo i punti importanti!
 
 // intro
 alert('Gioco del campo minato, clicca ok per iniziare');
 
 // array
-var arrayCpu = [];
-var arrayUtente = [];
-var numeriCasuali = generatoreArray(1,100);
 var punti = 0;
 var numeroTrovato = false;
-var possibilita = 4;
-var messaggio = '';
+var rangeNumeri = 20;
+var numeroBombe = 16;
+var arrayBombe = generatoreArrayBombe(rangeNumeri, numeroBombe);
+var tentativiMassimi = rangeNumeri - numeroBombe;
+var arrayNumeriUtente = [];
 
-// computer genera 16 numeri random
-while (arrayCpu.length < 16) {
-  var numeriCasuali = generatoreArray(1,100);
-  var doppioNumero = controlloSePresente(arrayCpu,numeriCasuali);
-  if (doppioNumero == false) {
-    arrayCpu.push(numeriCasuali);
+// console log dei numeri che ha generato il computer
+console.log(arrayBombe.sort());
+
+// totale dei tentativi massimi
+console.log("questi sono i tentativi che hai a disposizione " + tentativiMassimi);
+
+//
+while ((numeroTrovato === false) && (punti < tentativiMassimi)) {
+  var numUtente = parseInt(prompt("Dimmi un numero da 1 a " + rangeNumeri));
+
+   if (controlloSePresente(numUtente, arrayBombe)) {
+    numeroTrovato = true;
+  }
+  else {
+    arrayNumeriUtente.push(numUtente);
+    punti++;
   }
 }
-console.log(arrayCpu.sort());
 
-// inserimento numeri numeri utenti
-while (arrayUtente.length < possibilita && numeroTrovato == false) {
-  // chiedo un numero all'utente
-  numUtente = parseInt(prompt("Inserisci un numero da 1 a 100"));
-   // se il numero non e presente
-  if (controlloSePresente(numUtente, arrayUtente) == false) {
-    arrayUtente.push(numUtente);
-    console.log("numeri inseriti" + numUtente);
-    // se il numero dell'utente è presente
-    if (controlloSePresente(arrayCpu, arrayUtente) == true) {
-      messaggio = 'hai perso';
-      numeroTrovato = true;
-    } else {
-      punti++;
-      console.log("punti" + punti);
 
+// validazione
+
+if (isNaN(numUtente)) {
+  alert("attenzione inserisci un numero");
+}
+else if (controlloSePresente(numUtente, arrayNumeriUtente)) {
+  alert("non puoi ripetere i numeri");
+  console.log(arrayNumeriUtente);
+
+}
+
+
+
+// messaggi da mostrare in caso di vittoria o sconfitta
+if (numeroTrovato == true) {
+  console.log("BOOM HAI PERSO il tuo punteggio e " + punti);
+}
+else {
+  console.log("Sei riuscito a raggiungere L uscita il tuo punteggio e " + punti);
+}
+
+
+
+
+// FUNZIONI
+// generatore numeri cpu - computer genera 16 numeri random
+function generatoreArrayBombe(rangeNumeri, numeroBombe){
+  var arrayCpu = [];
+  while (arrayCpu.length < numeroBombe) {
+    var numeroCasuale = Math.floor(Math.random() * (100 - 1) ) + 1;
+    var doppioNumero = controlloSePresente(arrayCpu,numeroCasuale);
+    if (doppioNumero === false) {
+      arrayCpu.push(numeroCasuale);
     }
   }
+  return arrayCpu;
 }
 
-console.log(arrayUtente);
-console.log(messaggio + punti);
-
-// funzioni
-// generatore numeri cpu
-function generatoreArray(min,max){
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random()* (max - min + 1) ) + min;
+// funzione controllo  numeri presenti
+function controlloSePresente(elemento, listaArray) {
+var inArray = false;
+for (var i = 0; i < listaArray.length; i++) {
+  if (elemento == listaArray[i]) {
+    inArray = true;
+  }
 }
-
-// controllo  numeri presenti
-function controlloSePresente(array,value) {
-var i = 0;
-var p = false;
-while (i < array.length && p == false) {
-   if (array[i] == value) {
-     p = true; }
-  i++; }
-  return p;
+return inArray;
 }
